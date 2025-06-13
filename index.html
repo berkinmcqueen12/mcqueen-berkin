@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Berkin Testi - Final Boss Sürüm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://i.imgur.com/yM8g8Tt.jpg') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      overflow: hidden;
+    }
+    #container {
+      margin-top: 60px;
+    }
+    #soru {
+      font-size: 36px;
+      margin-bottom: 50px;
+      color: #fff;
+      text-shadow: 3px 3px 8px #000;
+    }
+    .btn {
+      padding: 20px 50px;
+      margin: 20px;
+      font-size: 28px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+      transition: all 0.4s ease;
+    }
+    #evet {
+      background: linear-gradient(45deg, #4CAF50, #81C784);
+      color: white;
+    }
+    #hayir {
+      background: linear-gradient(45deg, #e53935, #ef5350);
+      color: white;
+    }
+    #mcqueen {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      filter: drop-shadow(3px 3px 6px #000);
+    }
+    @media (max-width: 600px) {
+      #mcqueen { width: 120px; top: 10px; right: 10px; }
+      #soru { font-size: 26px; }
+      .btn { font-size: 22px; padding: 15px 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <div id="soru">Berkin ailenin en zeki çocuğu mu?</div>
+    <button id="evet" class="btn" onclick="evetTikla()">Evet</button>
+    <button id="hayir" class="btn" onclick="hayirTikla()">Hayır</button>
+  </div>
+
+  <img id="mcqueen" src="https://i.imgur.com/8IuUCnp.png" alt="Şimşek McQueen">
+
+  <audio id="ses">
+    <source src="https://www.myinstants.com/media/sounds/lightning-mcqueen-ka-chow.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    let evetButon = document.getElementById("evet");
+    let hayirSayac = 0;
+    const ses = document.getElementById("ses");
+
+    function evetTikla() {
+      ses.play();
+      alert("Doğru cevap! KERCHOW ⚡");
+    }
+
+    function hayirTikla() {
+      hayirSayac++;
+      ses.play();
+      let scale = 1 + hayirSayac * 0.3;
+      evetButon.style.transform = `scale(${scale}) rotate(${hayirSayac * 10}deg)`;
+
+      if (hayirSayac % 2 === 0) {
+        document.body.style.background = 'linear-gradient(135deg, #ff9a9e, #fad0c4)';
+      } else {
+        document.body.style.background = 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
+      }
+
+      if (scale >= 5) {
+        bitir();
+      }
+    }
+
+    function bitir() {
+      document.body.innerHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          background: url('https://i.imgur.com/xkY6S5q.jpg') no-repeat center center;
+          background-size: cover;
+          color:white;
+          font-size:50px;
+          text-shadow: 3px 3px 8px black;">
+          Biliyordum, teşekkürler. 🚗⚡
+        </div>`;
+    }
+  </script>
+
+</body>
+</html>
